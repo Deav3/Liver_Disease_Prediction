@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Disease Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        nav {
+            background-color: #5f4c4c;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 85px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .prediction {
+            color: green;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        a {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        a:hover {
+            color: #1f618d;
+        }
+
+        .img-container {
+            text-align: center;
+        }
+
+        .img-container img {
+            width: 30%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .print-button:hover {
+            background-color: #45a049;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .results,
+            .results * {
+                visibility: visible;
+            }
+
+            .results {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/predict">Go To Form</a>
+    </nav>
+    <div>
+        <h2 style="text-align: center; color: rgb(57, 5, 247)">Result:</h2>
+        {% if prediction == 1 %}
+        <p class="error">Prediction: {{ prediction }}</p>
+        <h2 style="text-align: center;">Chances of having Liver Disease are high. Please consult a doctor.</h2>
+    </div>
+
+    <div class="results">
+        <h3>Detailed Report</h3>
+        <p><strong>Name:</strong> {{ name }} ({{age}} years)</p>
+        <ul>
+            {% for result in results %}
+            <li>
+                <strong>{{ result.field }}:</strong>
+                <span style="color: rgb(255, 0, 85);">{{ result.value }}</span>
+                (Normal: {{ result.min }} - {{ result.max }})<br>
+                <span style="color: red;">{{ result.symptoms }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% elif prediction == 0 %}
+    <p class="prediction">Prediction: {{ prediction }}</p>
+
+    <div class="img-container">
+        <img src="https://heargoodnews.org/wp-content/uploads/2021/01/emoji-marketing.png" alt="Safe Emoji">
+    </div>
+
+    <div class="results">
+        <h3>Detailed Report</h3>
+        <p><strong>Name:</strong> {{ name }} ({{age}} years)</p>
+        <h2 style="text-align: center;">No Worries<i> {{name}}</i>! You don't have Liver Disease. Stay Safe.</h2>
+        <ul>
+            {% for result in results %}
+            <li>
+                <strong>{{ result.field }}:</strong>
+                <span style="color: rgb(255, 0, 85);">{{ result.value }}</span>
+                (Normal: {{ result.min }} - {{ result.max }})<br>
+                <span style="color: red;">{{ result.symptoms }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    </div>
+
+    <button class="print-button" onclick="window.print()">Download Report</button>
+</body>
+
+</html>

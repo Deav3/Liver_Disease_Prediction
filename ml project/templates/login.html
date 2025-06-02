@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #f7f7f7;
+            background-image: url(https://static.vecteezy.com/system/resources/thumbnails/023/417/428/small/healthcare-and-medical-innovation-background-with-dots-and-lines-molecular-structure-and-hospital-cross-illustration-vector.jpg);
+            background-size: cover;
+        }
+
+        nav {
+            background-color: #5f4c4c;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+            background-color: #24323d;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+
+        }
+
+        .title {
+            font-size: 28px;
+            color: #1ab188;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            position: relative;
+            text-align: center;
+        }
+
+        .message,
+        .login {
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .login a {
+            color: #1ab188;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .login a:focus {
+            color: #1ec79a;
+        }
+
+        .form label {
+            position: relative;
+        }
+
+        .form label input {
+            width: 100%;
+            padding: 10px 10px 20px 10px;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .form label input+span {
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            color: #24323d;
+            font-size: 0.9em;
+            cursor: text;
+            transition: 0.3s ease;
+        }
+
+        .form label input:placeholder-shown+span {
+            top: 15px;
+            font-size: 0.9em;
+        }
+
+        .form label input:focus+span,
+        .form label input:valid+span {
+            top: 30px;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+
+        .form label input:valid+span {
+            color: #1ab188;
+        }
+
+        .submit {
+            border: none;
+            outline: none;
+            background: #1ab188;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transform: 0.3s ease;
+        }
+
+        .submit:hover {
+            background: #1ec79a;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="signup">Signup</a>
+        <a href="login">Login</a>
+    </nav>
+    <form method="post" autocomplete="off" class="form">
+        <p class="title">Login</p>
+        <p class="message">Please Login with your valid credentials !</p>
+        <label>
+            <input type="email" id="username" name="username" required>
+            <span>Email</span>
+        </label>
+        <label>
+            <input type="password" id="password" name="password" required>
+            <span>Password</span>
+        </label>
+        <button class="submit">Login</button>
+
+        <p class="login">Don't have an account? <a href="/signup">Sign up here</a></p>
+    </form>
+</body>
+
+</html>

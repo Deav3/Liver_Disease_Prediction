@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Disease Prediction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #e6f7ff;
+            color: #333;
+        }
+
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #5f4c4c;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .container {
+            padding: 0px 30px;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5px;
+            margin-left: 10px 10px;
+            width: 100%;
+            font-size: 20px;
+        }
+
+        .hero h1 {
+            color: #0066cc;
+        }
+
+        .hero button {
+            padding: 10px 20px;
+            color: white;
+            background-color: #0066cc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero button:hover {
+            background-color: #004080;
+        }
+
+        .section {
+            margin: 20px 0;
+            margin-right: 20px;
+        }
+
+        .section h2 {
+            color: #004080;
+        }
+
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            padding: 5px 0;
+        }
+
+        footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .info-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .card {
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .card h3 {
+            color: #0066cc;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .mySlides img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            user-select: none;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: red;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: scroll-text 10s linear infinite;
+        }
+
+        @keyframes scroll-text {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .active,
+        .dot:hover {
+            background-color: #717171;
+        }
+
+
+
+
+
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+            background-color: black;
+            padding: 20px 10px;
+        }
+
+        .footer span {
+            padding-bottom: 10px;
+        }
+
+        .footer p {
+            padding-top: 25px;
+        }
+
+        .footer h2 {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="signup">Signup</a>
+        <a href="login">Login</a>
+    </nav>
+
+    <h1>Welcome To The Liver Disease Prediction System</h1>
+
+    <div class="slideshow-container">
+        <!-- Slides -->
+        <div class="mySlides">
+            <img src="{{ url_for('static', filename='liver1.jpg') }}" alt="Liver Disease Slide 1"
+                style="height: 500px;width: 1400px;">
+        </div>
+
+        <div class="mySlides">
+            <img src="{{ url_for('static', filename='liver2.jpg') }}" alt="Liver Disease Slide 2"
+                style="height: 500px;width: 1400px;">
+        </div>
+
+        <div class="mySlides">
+            <img src="{{ url_for('static', filename='liver4.jpg') }}" alt="Liver Disease Slide 3"
+                style="height: 500px;width: 1400px;">
+        </div>
+
+        <!-- Navigation Arrows -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <!-- Dots -->
+    <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+    <hr>
+
+    <div class="container">
+        <div class="hero">
+            <h2><b>Why Liver Health Matters</h2></b>
+            <p>Liver health is essential for overall well-being, as the liver plays a critical role in detoxifying the
+                body, processing nutrients, and regulating various metabolic functions. Unfortunately, liver diseases
+                affect millions of people worldwide, often developing silently without noticeable symptoms until they
+                reach advanced stages. Conditions such as fatty liver disease, cirrhosis, and liver cancer can
+                significantly impact quality of life, and, if left untreated, can lead to severe complications,
+                including liver failure. Early detection is vital because it allows for timely intervention, which can
+                help prevent the progression of the disease and improve treatment outcomes. By identifying liver
+                problems early, individuals can take proactive steps to manage their health, whether through lifestyle
+                changes, medications, or more advanced therapies, ensuring that the liver continues to function
+                optimally for years to come. Early screening and awareness can save lives, making liver health a
+                priority for everyone.</p>
+            <button onclick="location.href='signup'">Get Started</button>
+        </div>
+        <hr>
+
+
+        <div class="section info-card">
+            <div class="card" style="background-color:#ccffff;">
+                <h3>About the System</h3>
+                <img src="https://cronuts.digital/wp-content/uploads/2023/12/Captura-de-pantalla-2023-12-05-124236.png"
+                    alt="AI analyzing liver health metrics" style="width:100%; margin-top:20px;">
+                <p id="content">
+                    Our Liver Disease Prediction system uses advanced algorithms to assess key medical metrics and
+                    predict potential
+                    liver health risks.
+                </p>
+                <button id="toggleButton" style="color:brown;font-size:15px;" onclick="toggleReadMore() ">Read
+                    More</button>
+            </div>
+
+            <div class="card" style="background-color:#ccffff;">
+                <h3>Key Components</h3>
+                <div id="image-container" style="display: block; margin-top: 10px;">
+                    <img src="{{ url_for('static', filename='features.jpg') }}" id="feature-image" alt="Feature Image"
+                        style="width:100%; margin-top:20px; height:350px;">
+                </div>
+                <p>Click to view the features</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                    <button style="flex: 1;color:brown;font-size:15px; padding: 10px; "
+                        onclick="showFeature('signup')">Signup
+                        Page</button>
+                    <button style="flex: 1;color:brown;font-size:15px; padding: 10px;"
+                        onclick="showFeature('login')">Login
+                        Page</button>
+                    <button style="flex: 1;color:brown;font-size:15px; padding: 10px;"
+                        onclick="showFeature('predict')">Prediction Page</button>
+                    <button style="flex: 1;color:brown;font-size:15px; padding: 10px;"
+                        onclick="showFeature('result')">Result Page</button>
+                </div>
+
+
+                <!-- Feature Details -->
+                <div id="feature-signup" class="feature-detail" style="display: none;">
+                    <img src="{{ url_for('static', filename='signup.png') }}" alt="Signup Page"
+                        style="width:100%; margin-top:10px;">
+                    <p>The signup page offers a secure and user-friendly interface for new users to create an account.
+                        It collects essential details like email, password, and other required information while
+                        ensuring data security.</p>
+                    <button style=" color:brown;font-size:15px;" onclick="closeFeature()">Close</button>
+                </div>
+
+                <div id="feature-login" class="feature-detail" style="display: none;">
+                    <img src="{{ url_for('static', filename='login.png') }}" alt="Login Page"
+                        style="width:100%; margin-top:10px;">
+                    <p>The login page enables registered users to access the system securely. It includes robust
+                        authentication features and password recovery options for ease of use.</p>
+                    <button style=" color:brown;font-size:15px;" onclick="closeFeature()">Close</button>
+                </div>
+
+                <div id="feature-predict" class="feature-detail" style="display: none;">
+                    <img src="{{ url_for('static', filename='predict.png') }}" alt="Prediction Page"
+                        style="width:100%; margin-top:10px;">
+                    <p>The prediction page allows users to input medical data such as liver enzyme levels, age, and
+                        gender. The system processes the data using advanced AI algorithms to predict potential liver
+                        health risks.</p>
+                    <button style=" color:brown;font-size:15px;" onclick="closeFeature()">Close</button>
+                </div>
+
+                <div id="feature-result" class="feature-detail" style="display: none;">
+                    <img src="{{ url_for('static', filename='result1.png') }}" alt="Result Page"
+                        style="width:100%; margin-top:10px;">
+                    <p>The result page displays detailed analysis and actionable insights. It provides a clear overview
+                        of the prediction, risk levels, and suggested next steps for better health management.</p>
+                    <button style=" color:brown;font-size:15px;" onclick="closeFeature()">Close</button>
+                </div>
+            </div>
+
+            <div class="card" style="background-color:#ccffff;">
+                <h3>Health Tips</h3>
+                <img id="healthImage" src="{{ url_for('static', filename='Healthtips2.png') }}" alt="Health Tips"
+                    style="height:400px;margin-top:20px; width:100%; margin-bottom: 30px;">
+                <button onclick="togglePrecautions()"
+                    style="margin-bottom: 10px;color:brown;font-size:15px; padding: 10px; width: 100%;">
+                    Show Precautions</button>
+
+                <div id="precautions"
+                    style="display: none; max-height: 400px; overflow-y: auto; border-top: 1px solid #ddd; padding-top: 10px;">
+                    <h3>Precautions for Preventing Liver Disease</h3>
+                    <p><strong>Avoid Excessive Alcohol Consumption:</strong> Limit or avoid drinking alcohol, as heavy
+                        drinking can lead to liver damage and diseases such as cirrhosis or alcoholic hepatitis.</p>
+                    <p><strong>Maintain a Healthy Weight:</strong> Obesity and excess weight can lead to non-alcoholic
+                        fatty liver disease (NAFLD), which increases the risk of liver damage. A balanced diet and
+                        regular exercise are crucial for weight management.</p>
+                    <p><strong>Get Vaccinated:</strong> Vaccines for Hepatitis A and B can prevent these liver
+                        infections. Ensure that you are up-to-date on these vaccinations.</p>
+                    <p><strong>Limit Exposure to Hepatitis Viruses:</strong> Hepatitis A, B, and C are viral infections
+                        that damage the liver. Practice safe sex, avoid sharing needles, and avoid exposure to
+                        contaminated water or food.</p>
+                    <p><strong>Avoid Toxins:</strong> Avoid exposure to harmful chemicals, pesticides, or industrial
+                        solvents, as these can damage the liver. Use protective equipment if you work with these
+                        substances.</p>
+                    <p><strong>Healthy Diet:</strong> Eat a balanced, nutritious diet that includes plenty of fruits,
+                        vegetables, lean proteins, and whole grains. Limit intake of saturated fats, sugar, and
+                        processed foods that contribute to liver fat accumulation.</p>
+                    <p><strong>Regular Exercise:</strong> Engage in regular physical activity to maintain a healthy
+                        weight and reduce the risk of developing fatty liver disease.</p>
+                    <p><strong>Regular Medical Checkups:</strong> Get regular checkups to monitor liver function,
+                        especially if you have a family history of liver disease or other risk factors. Early detection
+                        can help manage liver conditions effectively.</p>
+                    <p><strong>Be Cautious with Medications:</strong> Some medications can damage the liver if used
+                        excessively or incorrectly. Always follow the prescribed dosages and inform your healthcare
+                        provider of all medications you are taking.</p>
+                    <button onclick="togglePrecautions()"
+                        style="margin-bottom: 10px;color:brown;font-size:15px; padding: 10px; width: 100%;">Hide
+                        Precautions</button>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div style="display: flex; align-items: flex-start; gap: 20px; padding: 25px;">
+            <!-- Image Section -->
+            <div style="flex-shrink: 0;">
+                <img src="{{ url_for('static', filename='flow.png') }}" alt="Working Process Image"
+                    style="padding:45px; padding-left: 25px;display:block; width: 550px; height: 490px; border-radius: 8px;">
+            </div>
+
+            <!-- Content Section -->
+            <div class="sect" style="flex-grow: 1; margin-right: 40px;">
+                <h2 style="text-align: center;">Working Process</h2>
+                <ol>
+                    <li>Begin by signing up with your valid credentials (username and password).</li>
+                    <li>Ensure that the credentials are accurate as they will be required for login.</li>
+                    <li>Log in to the application using the same credentials you provided during signup.</li>
+                    <li>This step verifies your access and takes you to the internal prediction page.</li>
+                    <li>On the prediction page, you will find a form requiring specific inputs.</li>
+                    <li>Enter the recommended liver enzyme field values (e.g., bilirubin levels, ALT, AST, etc.)
+                        necessary for prediction.</li>
+                    <li>After submitting the form, the system predicts the result:</li>
+                    <li>Result = 0: The patient has No Liver Disease.</li>
+                    <li>Result = 1: The patient is diagnosed with Liver Disease.</li>
+                    <li>If the result indicates liver disease, a detailed report will be generated.</li>
+                    <li>This report includes the prediction details and symptoms of the diagnosed condition.</li>
+                    <li>You can download the report for future reference.</li>
+                </ol>
+            </div>
+        </div>
+        <hr>
+        <div class="image-containers">
+            <h2 style="text-align: center;">Stages of Liver Disease</h2>
+            <div class="mySlides-image">
+                <img src="{{ url_for('static', filename='stages2.jpeg') }}" alt="Liver Disease Slide 1"
+                    style="height: 400px;width: 1350px;">
+            </div>
+        </div>
+        <hr>
+
+
+        <div class="section" style="padding: 20px;">
+            <h2>Testimonials</h2>
+            <p>"This system helped us to identify the liver issues early and Recomended to consult a doctor in time.
+                Highly recommend!
+                This system has been incredibly helpful in identifying liver issues at an early stage, allowing for
+                timely intervention. Its ability to detect potential problems before they become severe has been
+                invaluable, providing users with the opportunity to seek medical advice and treatment promptly. By
+                recommending consultation with a doctor when necessary, it ensures that individuals are taking the right
+                steps toward managing their health effectively. Overall, I highly recommend this system to anyone
+                looking to stay on top of their liver health, as it offers peace of mind and an important early warning
+                when things may not be quite right."
+            </p>
+        </div>
+    </div>
+
+    <footer>
+
+        <p>&copy; 2025 Gollu Devudubabu !. All rights reserved.</p>
+        <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/Previous Controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Specific Slide Controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        // Show Slides
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        // Automatically change slides every 3 seconds
+        setInterval(function () {
+            plusSlides(1);
+        }, 3000); // Change slide every 3 second
+        function toggleReadMore() {
+            const content = document.getElementById("content");
+            const button = document.getElementById("toggleButton");
+
+            if (button.textContent === "Read More") {
+                content.innerHTML = `Our Liver disease Prediction system uses advanced algorithms to assess key medical metrics and predict potential liver health risks. 
+                    This includes using machine learning to analyze trends, identify early warning signs, and provide actionable insights to help users and medical professionals.`;
+                button.textContent = "Read Less";
+            } else {
+                content.innerHTML = `Our Liver Disease Prediction system uses advanced algorithms to assess key medical metrics and predict potential liver health risks.`;
+                button.textContent = "Read More";
+            }
+        }
+        function showFeature(featureId) {
+            // Hide image container
+            document.getElementById('image-container').style.display = 'none';
+
+            // Hide all feature details
+            const features = document.querySelectorAll('.feature-detail');
+            features.forEach(feature => feature.style.display = 'none');
+
+            // Show the selected feature
+            const selectedFeature = document.getElementById(`feature-${featureId}`);
+            if (selectedFeature) {
+                selectedFeature.style.display = 'block';
+            }
+        }
+
+        function closeFeature() {
+            // Hide all feature details
+            const features = document.querySelectorAll('.feature-detail');
+            features.forEach(feature => feature.style.display = 'none');
+
+            // Show the image container again
+            document.getElementById('image-container').style.display = 'block';
+        }
+        function togglePrecautions() {
+            const precautions = document.getElementById("precautions");
+            if (precautions.style.display === "none" || precautions.style.display === "") {
+                precautions.style.display = "block";
+            } else {
+                precautions.style.display = "none";
+            }
+        }
+        function togglePrecautions() {
+            const precautions = document.getElementById("precautions");
+            const image = document.getElementById("healthImage");
+
+            if (precautions.style.display === "none" || precautions.style.display === "") {
+                // Show the precautions and hide the image
+                precautions.style.display = "block";
+                image.style.display = "none";
+            } else {
+                // Hide the precautions and show the image again
+                precautions.style.display = "none";
+                image.style.display = "block";
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>
